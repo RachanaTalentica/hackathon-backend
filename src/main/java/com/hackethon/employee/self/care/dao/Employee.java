@@ -1,5 +1,8 @@
 package com.hackethon.employee.self.care.dao;
 
+import com.hackethon.employee.self.care.dao.enums.CurrentDesignation;
+import com.hackethon.employee.self.care.dao.enums.Gender;
+import com.hackethon.employee.self.care.dao.enums.Tools;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,7 +38,7 @@ public class Employee {
     private int yearsOfExperience;
 
     @Column(name = "current_designation")
-    private String currentDesignation;
+    private CurrentDesignation currentDesignation;
 
     @ElementCollection
     @CollectionTable(name = "technology_list", joinColumns = @JoinColumn( name = "employee_id"))
@@ -49,7 +52,7 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String name, String email, Gender gender, int yearsOfExperience, String currentDesignation,String interestArea) {
+    public Employee(String name, String email, Gender gender, int yearsOfExperience, CurrentDesignation currentDesignation,String interestArea) {
         this.name = name;
         this.email = email;
         this.gender = gender;
