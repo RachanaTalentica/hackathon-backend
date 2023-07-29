@@ -2,7 +2,9 @@ package com.hackethon.employee.self.care.service;
 
 import com.hackethon.employee.self.care.adaptor.ChatGptApiClient;
 import com.hackethon.employee.self.care.dao.Employee;
+import com.hackethon.employee.self.care.dao.Project;
 import com.hackethon.employee.self.care.dto.ChatGPTRequest;
+import com.hackethon.employee.self.care.dto.ProjectRequest;
 import com.hackethon.employee.self.care.exception.ResourceNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,24 @@ public class ChatGPTService {
             new ResourceNotFoundException(e.getMessage());
         }
         return employee;
+    }
+
+    public String addProjectTechStackAndRelatedProjectInMarket(ProjectRequest project) throws IOException {
+        String userPrompt = project.getProjectDescription();
+        String systemPrompt =
+                "Given the description of the project, give the best tech stack to be used for the project" +
+                " and best architectural decisions in json format and " +
+                "also give similar project around the market in json format." +
+                " Also combine all the tech stack and return in a new field";
+        ChatGPTRequest chatGPTRequest = new ChatGPTRequest(systemPrompt, userPrompt);
+        String response = ChatGptApiClient.sendApiRequest(chatGPTRequest);
+        try {
+            String content = ChatGptApiClient.extractContentFromResponse(response);
+            return content;
+        } catch (Exception e) {
+            new ResourceNotFoundException(e.getMessage());
+        }
+        return null;
     }
 
 
