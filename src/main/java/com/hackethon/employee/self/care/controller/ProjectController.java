@@ -41,8 +41,13 @@ public class ProjectController {
         return projectService.getProjectList();
     }
 
+    @GetMapping("/project/{projectId}")
+    public ProjectRequest getProject(@PathVariable("projectId") Long projectId) throws IOException {
+        return projectService.getProject(projectId);
+    }
+
     @GetMapping("/project-suggestion/{projectId}")
-    public String getProject(@PathVariable("projectId") Long projectId) throws IOException {
+    public String getProjectSuggestions(@PathVariable("projectId") Long projectId) throws IOException {
         ProjectRequest project=projectService.getProject(projectId);
         String response=chatGPTService.addProjectTechStackAndRelatedProjectInMarket(project);
         return response;
