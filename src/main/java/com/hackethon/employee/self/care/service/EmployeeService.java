@@ -4,7 +4,6 @@ import com.hackethon.employee.self.care.dao.Employee;
 import com.hackethon.employee.self.care.dao.EmployeeRepository;
 import com.hackethon.employee.self.care.dao.enums.CurrentDesignation;
 import com.hackethon.employee.self.care.dao.enums.Gender;
-import com.hackethon.employee.self.care.dao.enums.Tools;
 import com.hackethon.employee.self.care.dto.EmployeeRequest;
 import com.hackethon.employee.self.care.dto.EmployeeResponse;
 import com.hackethon.employee.self.care.dto.RolesResponsibilityRequest;
@@ -14,6 +13,7 @@ import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +27,11 @@ public class EmployeeService {
     @Autowired
     RoleService roleService;
 
-    public EmployeeResponse saveEmployee(EmployeeRequest employeeRequest) {
+    @Autowired
+    ChatGPTService chatGPTService;
+
+
+    public EmployeeResponse saveEmployee(EmployeeRequest employeeRequest) throws IOException {
         Employee employee
                 = new Employee(employeeRequest.getName(),
                 employeeRequest.getEmail(),
@@ -36,12 +40,12 @@ public class EmployeeService {
                 CurrentDesignation.fromValue(employeeRequest.getCurrentDesignation()),
                 employeeRequest.getInterestArea());
         employee.setToolsTechnologyDatabaseFramework(employeeRequest.getToolsTechnologyDatabaseFramework());
+        employee = chatGPTService.addSuggestedTechStackAndTraining(employee);
         employeeRepository.save(employee);
-
         return new EmployeeResponse(employee.getId());
     }
 
-    public void updateEmployee(EmployeeRequest employeeRequest, Long employeeId) {
+    public void updateEmployee(EmployeeRequest employeeRequest, Long employeeId) throws IOException {
 
         Employee employee = employeeRepository.findById(employeeId).orElse(null);
 
@@ -68,7 +72,7 @@ public class EmployeeService {
         employee.setInterestArea(employeeRequest.getInterestArea() != null ?
                 employeeRequest.getInterestArea() :
                 employee.getInterestArea());
-
+        employee = chatGPTService.addSuggestedTechStackAndTraining(employee);
         employeeRepository.save(employee);
     }
 

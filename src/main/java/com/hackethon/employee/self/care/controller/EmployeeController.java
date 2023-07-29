@@ -1,8 +1,6 @@
 package com.hackethon.employee.self.care.controller;
 
-import com.hackethon.employee.self.care.adaptor.ChatGptApiClient;
 import com.hackethon.employee.self.care.constant.ControllerConstant;
-import com.hackethon.employee.self.care.dto.ChatGPTRequest;
 import com.hackethon.employee.self.care.dto.EmployeeRequest;
 import com.hackethon.employee.self.care.dto.EmployeeResponse;
 import com.hackethon.employee.self.care.service.EmployeeService;
@@ -11,9 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 import java.io.IOException;
+import java.util.List;
 
 
 @RestController
@@ -25,8 +22,7 @@ public class EmployeeController {
     EmployeeService employeeService;
 
     @PostMapping("/employee")
-    public EmployeeResponse createEmployee(@RequestBody EmployeeRequest employeeRequest) {
-
+    public EmployeeResponse createEmployee(@RequestBody EmployeeRequest employeeRequest) throws IOException {
         EmployeeResponse employeeResponse = employeeService.saveEmployee(employeeRequest);
         return employeeResponse;
     }
@@ -34,7 +30,7 @@ public class EmployeeController {
     @PutMapping("/employee/{employeeId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateEmployee(@RequestBody EmployeeRequest employeeRequest,
-                               @PathVariable("employeeId") Long employeeId) {
+                               @PathVariable("employeeId") Long employeeId) throws IOException {
         employeeService.updateEmployee(employeeRequest, employeeId);
 
     }
@@ -54,17 +50,5 @@ public class EmployeeController {
     @DeleteMapping("/employee/{employeeId}")
     public void deleteEmployee(@PathVariable("employeeId") Long employeeId) {
         employeeService.deleteEmployee(employeeId);
-    }
-
-    @PostMapping("/chatgpt")
-    public String chatGpt(@RequestBody ChatGPTRequest chatGPTRequest) throws IOException {
-        ChatGptApiClient chatGptApiClient=new ChatGptApiClient();
-        String response = chatGptApiClient.sendApiRequest(chatGPTRequest);
-
-        String content = chatGptApiClient.extractContentFromResponse(response);
-
-        System.out.println("Generated Content:");
-        System.out.println(content);
-        return content;
     }
 }

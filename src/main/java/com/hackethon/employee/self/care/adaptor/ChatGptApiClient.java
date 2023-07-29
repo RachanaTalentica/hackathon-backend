@@ -13,7 +13,7 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 
-import static com.hackethon.employee.self.care.constant.ControllerConstant.*;
+import static com.hackethon.employee.self.care.constant.ChatGPTConstant.*;
 
 public class ChatGptApiClient {
 
