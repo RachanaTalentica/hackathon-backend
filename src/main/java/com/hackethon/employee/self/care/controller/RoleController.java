@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @Slf4j
+@CrossOrigin(origins = "*")
 @RequestMapping(ControllerConstant.API_BASE_PATH + "/employee/{employeeId}/roles")
 public class RoleController {
     @Autowired

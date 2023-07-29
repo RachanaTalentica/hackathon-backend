@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @Slf4j
+@CrossOrigin(origins = "*")
 @RequestMapping(ControllerConstant.API_BASE_PATH)
 public class EmployeeController {
 
