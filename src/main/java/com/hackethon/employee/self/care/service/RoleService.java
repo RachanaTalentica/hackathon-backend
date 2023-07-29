@@ -1,6 +1,7 @@
 package com.hackethon.employee.self.care.service;
 
 import com.hackethon.employee.self.care.dao.*;
+import com.hackethon.employee.self.care.dto.ProjectRequest;
 import com.hackethon.employee.self.care.dto.RolesResponsibilityRequest;
 import com.hackethon.employee.self.care.dto.RolesResponsibilityResponse;
 import com.hackethon.employee.self.care.exception.ResourceNotFoundException;
@@ -22,6 +23,8 @@ public class RoleService {
     EmployeeRepository employeeRepository;
     @Autowired
     ProjectRepository projectRepository;
+
+    @Autowired ProjectService projectService;
 
     public List<RolesResponsibilityResponse> saveRoles(List<RolesResponsibilityRequest> roleRequestList,
                                                        Long employeeId) {
@@ -69,6 +72,7 @@ public class RoleService {
 
         for (RolesResponsibility rolesResponsibility : rolesResponsibilityRepository.findAllByEmployeeId(employeeId)){
 
+            ProjectRequest projectRequest = projectService.getProject(rolesResponsibility.getProject().getId());
             RolesResponsibilityRequest role = new RolesResponsibilityRequest(rolesResponsibility.getId(),
                     rolesResponsibility.getEmployee().getId(),
                     rolesResponsibility.getProject().getId(),
@@ -76,7 +80,8 @@ public class RoleService {
                     rolesResponsibility.getAchievements(),
                     rolesResponsibility.getTools(),
                     rolesResponsibility.getStartYear(),
-                    rolesResponsibility.getEndYear());
+                    rolesResponsibility.getEndYear(),
+                    projectRequest);
 
             rolesResponsibilityRequestList.add(role);
 

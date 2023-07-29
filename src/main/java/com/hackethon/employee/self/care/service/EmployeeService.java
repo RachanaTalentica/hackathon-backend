@@ -4,11 +4,15 @@ import com.hackethon.employee.self.care.dao.Employee;
 import com.hackethon.employee.self.care.dao.EmployeeRepository;
 import com.hackethon.employee.self.care.dto.EmployeeRequest;
 import com.hackethon.employee.self.care.dto.EmployeeResponse;
+import com.hackethon.employee.self.care.dto.RolesResponsibilityRequest;
 import com.hackethon.employee.self.care.exception.ResourceNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -16,6 +20,9 @@ public class EmployeeService {
 
     @Autowired
     EmployeeRepository employeeRepository;
+
+    @Autowired
+    RoleService roleService;
 
     public EmployeeResponse saveEmployee(EmployeeRequest employeeRequest) {
         Employee employee
@@ -62,13 +69,15 @@ public class EmployeeService {
         employeeRepository.save(employee);
     }
 
-    public EmployeeRequest getEmployeeById(Long employeeId){
+    public EmployeeRequest getEmployeeById(Long employeeId) {
 
         Employee employee = employeeRepository.findById(employeeId).orElse(null);
 
         if (employee == null) {
             throw new ResourceNotFoundException(String.format("Employee not found with employeeId = ", employeeId));
         }
+
+        List<RolesResponsibilityRequest> rolesResponsibilityList = roleService.getRoles(employeeId);
 
         EmployeeRequest employeeRequest = new EmployeeRequest(employee.getId(),
                 employee.getName(),
@@ -77,13 +86,25 @@ public class EmployeeService {
                 employee.getYearsOfExperience(),
                 employee.getCurrentDesignation(),
                 employee.getToolsTechnologyDatabaseFramework(),
-                employee.getInterestArea());
+                employee.getInterestArea(), rolesResponsibilityList);
 
         return employeeRequest;
     }
 
-    public void deleteEmployee(Long employeeId){
+    public void deleteEmployee(Long employeeId) {
 
         employeeRepository.deleteById(employeeId);
+    }
+
+    public List<EmployeeRequest> getEmployees(){
+
+        List<EmployeeRequest> employeeRequests = new ArrayList<>();
+
+        for(Employee employee : employeeRepository.findAll()){
+
+            employeeRequests.add(getEmployeeById(employee.getId()));
+        }
+
+        return employeeRequests;
     }
 }
