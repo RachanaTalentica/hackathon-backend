@@ -1,5 +1,6 @@
 package com.hackethon.employee.self.care.dto;
 
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -8,7 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class EmployeeResponse {
-    @JsonProperty("employeeId")
+public class ProjectResponse {
+
+    @JsonProperty("projectId")
     private Long id;
 }

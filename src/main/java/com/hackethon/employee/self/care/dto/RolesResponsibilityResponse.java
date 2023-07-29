@@ -8,7 +8,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class EmployeeResponse {
-    @JsonProperty("employeeId")
+public class RolesResponsibilityResponse {
+
+    @JsonProperty("roleId")
     private Long id;
 }
