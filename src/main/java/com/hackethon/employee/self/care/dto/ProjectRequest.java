@@ -1,6 +1,14 @@
 package com.hackethon.employee.self.care.dto;
 
-public class ProjectDTO {
+
+import lombok.*;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class ProjectRequest {
     private Long id;
     private String projectName;
     private String projectDescription;
