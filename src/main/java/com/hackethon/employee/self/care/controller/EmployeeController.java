@@ -1,6 +1,8 @@
 package com.hackethon.employee.self.care.controller;
 
+import com.hackethon.employee.self.care.adaptor.ChatGptApiClient;
 import com.hackethon.employee.self.care.constant.ControllerConstant;
+import com.hackethon.employee.self.care.dto.ChatGPTRequest;
 import com.hackethon.employee.self.care.dto.EmployeeRequest;
 import com.hackethon.employee.self.care.dto.EmployeeResponse;
 import com.hackethon.employee.self.care.service.EmployeeService;
@@ -10,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import java.io.IOException;
+
 
 @RestController
 @Slf4j
@@ -49,5 +54,17 @@ public class EmployeeController {
     @DeleteMapping("/employee/{employeeId}")
     public void deleteEmployee(@PathVariable("employeeId") Long employeeId) {
         employeeService.deleteEmployee(employeeId);
+    }
+
+    @PostMapping("/chatgpt")
+    public String chatGpt(@RequestBody ChatGPTRequest chatGPTRequest) throws IOException {
+        ChatGptApiClient chatGptApiClient=new ChatGptApiClient();
+        String response = chatGptApiClient.sendApiRequest(chatGPTRequest);
+
+        String content = chatGptApiClient.extractContentFromResponse(response);
+
+        System.out.println("Generated Content:");
+        System.out.println(content);
+        return content;
     }
 }
