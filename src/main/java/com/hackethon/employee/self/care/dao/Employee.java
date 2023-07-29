@@ -1,9 +1,12 @@
-package com.hackethon.employee.self.care.model;
+package com.hackethon.employee.self.care.dao;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -31,8 +34,10 @@ public class Employee {
     @Column(name = "current_designation")
     private String currentDesignation;
 
+    @ElementCollection
+    @CollectionTable(name = "technology_list", joinColumns = @JoinColumn( name = "employee_id"))
     @Column(name = "tools_technology_database_framework")
-    private String toolsTechnologyDatabaseFramework;
+    private List<String> toolsTechnologyDatabaseFramework = new ArrayList<String>();
 
     @Column(name = "interest_area")
     private String interestArea;
@@ -41,14 +46,12 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String name, String email, Gender gender, int yearsOfExperience, String currentDesignation,
-                    String toolsTechnologyDatabaseFramework, String interestArea) {
+    public Employee(String name, String email, Gender gender, int yearsOfExperience, String currentDesignation,String interestArea) {
         this.name = name;
         this.email = email;
         this.gender = gender;
         this.yearsOfExperience = yearsOfExperience;
         this.currentDesignation = currentDesignation;
-        this.toolsTechnologyDatabaseFramework = toolsTechnologyDatabaseFramework;
         this.interestArea = interestArea;
     }
 }

@@ -1,14 +1,23 @@
 package com.hackethon.employee.self.care.dto;
 
-import com.hackethon.employee.self.care.model.Gender;
+import com.hackethon.employee.self.care.dao.Gender;
+import lombok.*;
 
-public class EmployeeDTO {
+import java.util.List;
+
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class EmployeeRequest {
     private Long id;
     private String name;
     private String email;
     private Gender gender;
     private int yearsOfExperience;
     private String currentDesignation;
-    private String toolsTechnologyDatabaseFramework;
+    private List<String> toolsTechnologyDatabaseFramework;
     private String interestArea;
 }

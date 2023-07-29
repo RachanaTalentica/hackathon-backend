@@ -1,4 +1,4 @@
-package com.hackethon.employee.self.care.model;
+package com.hackethon.employee.self.care.dao;
 
 import lombok.Getter;
 import lombok.Setter;
