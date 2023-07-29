@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @Slf4j
 @RequestMapping(ControllerConstant.API_BASE_PATH)
@@ -33,9 +35,15 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee/{employeeId}")
-    public EmployeeRequest getEmployees(@PathVariable("employeeId") Long employeeId) {
+    public EmployeeRequest getEmployee(@PathVariable("employeeId") Long employeeId) {
 
         return employeeService.getEmployeeById(employeeId);
+    }
+
+    @GetMapping("/employee")
+    public List<EmployeeRequest> getEmployees(){
+
+        return employeeService.getEmployees();
     }
 
     @DeleteMapping("/employee/{employeeId}")

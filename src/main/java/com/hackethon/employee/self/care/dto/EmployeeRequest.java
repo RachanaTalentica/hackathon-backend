@@ -20,4 +20,5 @@ public class EmployeeRequest {
     private String currentDesignation;
     private List<String> toolsTechnologyDatabaseFramework;
     private String interestArea;
+    private List<RolesResponsibilityRequest> rolesResponsibility;
 }
