@@ -1,6 +1,6 @@
 package com.hackethon.employee.self.care.dto;
 
-import com.hackethon.employee.self.care.dao.Gender;
+import com.hackethon.employee.self.care.dao.enums.Gender;
 import lombok.*;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public class EmployeeRequest {
     private Long id;
     private String name;
     private String email;
-    private Gender gender;
+    private String gender;
     private int yearsOfExperience;
     private String currentDesignation;
     private List<String> toolsTechnologyDatabaseFramework;

@@ -2,6 +2,9 @@ package com.hackethon.employee.self.care.service;
 
 import com.hackethon.employee.self.care.dao.Employee;
 import com.hackethon.employee.self.care.dao.EmployeeRepository;
+import com.hackethon.employee.self.care.dao.enums.CurrentDesignation;
+import com.hackethon.employee.self.care.dao.enums.Gender;
+import com.hackethon.employee.self.care.dao.enums.Tools;
 import com.hackethon.employee.self.care.dto.EmployeeRequest;
 import com.hackethon.employee.self.care.dto.EmployeeResponse;
 import com.hackethon.employee.self.care.dto.RolesResponsibilityRequest;
@@ -28,9 +31,9 @@ public class EmployeeService {
         Employee employee
                 = new Employee(employeeRequest.getName(),
                 employeeRequest.getEmail(),
-                employeeRequest.getGender(),
+                Gender.fromValue(employeeRequest.getGender()),
                 employeeRequest.getYearsOfExperience(),
-                employeeRequest.getCurrentDesignation(),
+                CurrentDesignation.fromValue(employeeRequest.getCurrentDesignation()),
                 employeeRequest.getInterestArea());
         employee.setToolsTechnologyDatabaseFramework(employeeRequest.getToolsTechnologyDatabaseFramework());
         employeeRepository.save(employee);
@@ -47,11 +50,11 @@ public class EmployeeService {
         }
 
         employee.setGender(employeeRequest.getGender() != null ?
-                employeeRequest.getGender() :
+                Gender.fromValue(employeeRequest.getGender()) :
                 employee.getGender());
 
         employee.setCurrentDesignation(Strings.isNotEmpty(employeeRequest.getCurrentDesignation()) ?
-                employeeRequest.getCurrentDesignation() :
+                CurrentDesignation.fromValue(employeeRequest.getCurrentDesignation()) :
                 employee.getCurrentDesignation());
 
         employee.setYearsOfExperience(employeeRequest.getYearsOfExperience() != 0 ?
@@ -82,10 +85,10 @@ public class EmployeeService {
         EmployeeRequest employeeRequest = new EmployeeRequest(employee.getId(),
                 employee.getName(),
                 employee.getEmail(),
-                employee.getGender(),
+                employee.getGender().getValue(),
                 employee.getYearsOfExperience(),
-                employee.getCurrentDesignation(),
-                employee.getToolsTechnologyDatabaseFramework(),
+                employee.getCurrentDesignation().getValue(),
+               employee.getToolsTechnologyDatabaseFramework(),
                 employee.getInterestArea(), rolesResponsibilityList);
 
         return employeeRequest;

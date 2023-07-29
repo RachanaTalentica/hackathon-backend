@@ -14,7 +14,6 @@ public class RolesResponsibilityRequest {
     private Long id;
     @JsonIgnore
     private Long employeeId;
-    @JsonIgnore
     private Long projectId;
     private String rolesAndResponsibility;
     private String achievements;

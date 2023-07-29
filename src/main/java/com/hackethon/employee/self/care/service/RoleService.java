@@ -1,6 +1,7 @@
 package com.hackethon.employee.self.care.service;
 
 import com.hackethon.employee.self.care.dao.*;
+import com.hackethon.employee.self.care.dao.enums.Tools;
 import com.hackethon.employee.self.care.dto.ProjectRequest;
 import com.hackethon.employee.self.care.dto.RolesResponsibilityRequest;
 import com.hackethon.employee.self.care.dto.RolesResponsibilityResponse;
@@ -49,7 +50,7 @@ public class RoleService {
                     employee,
                     project,
                     roleRequest.getRolesAndResponsibility(),
-                    roleRequest.getAchievements(), roleRequest.getTools(),
+                    roleRequest.getAchievements(),roleRequest.getTools(),
                     roleRequest.getStartYear(), roleRequest.getEndYear());
 
             rolesResponsibilityRepository.save(rolesResponsibility);
