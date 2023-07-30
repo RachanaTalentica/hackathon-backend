@@ -93,7 +93,7 @@ public class EmployeeService {
                 employee.getYearsOfExperience(),
                 employee.getCurrentDesignation().getValue(),
                employee.getToolsTechnologyDatabaseFramework(),
-                employee.getInterestArea(), rolesResponsibilityList);
+                employee.getInterestArea(), rolesResponsibilityList, employee.getSuggestedTechTraining());
 
         return employeeRequest;
     }

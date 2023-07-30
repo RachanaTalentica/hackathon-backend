@@ -21,4 +21,5 @@ public class EmployeeRequest {
     private List<String> toolsTechnologyDatabaseFramework;
     private String interestArea;
     private List<RolesResponsibilityRequest> rolesResponsibility;
+    private String suggestedTechTraining;
 }
