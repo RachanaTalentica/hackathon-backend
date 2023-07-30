@@ -21,8 +21,7 @@ import static com.hackethon.employee.self.care.constant.ChatGPTConstant.*;
 public class ChatGptApiClient {
 
     public static String sendApiRequest(ChatGPTRequest chatGPTRequest) throws IOException {
-        log.info(API_URL);
-        log.info(API_KEY);
+        log.info("Calling "+ API_URL);
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(API_URL);
 
