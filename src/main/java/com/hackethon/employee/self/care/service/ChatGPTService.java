@@ -59,10 +59,10 @@ public class ChatGPTService {
 
     public String getTechStackBasedOnInputPrompt(String userPrompt) throws IOException {
         String systemPrompt =
-                "Based on the requirement, please provide tech stack (include similar techstack " +
-                        "as well which can be a replacement of mentioned techstack) that can be " +
-                        "useful on the basis of requirement in json format. " +
-                        "Provide only the name of techstack. JSON should have only one key 'tech'";
+                "Based on the requirement, please provide tech stack (include similar techstack as well " +
+                        "which can be a replacement of mentioned techstack) that can be useful on the basis of " +
+                        "requirement in json format. Provide only the name of techstack. " +
+                        "Output JSON Format should be: {\\\"tech\\\":[]}";
 
         ChatGPTRequest chatGPTRequest = new ChatGPTRequest(systemPrompt, userPrompt);
         String response = ChatGptApiClient.sendApiRequest(chatGPTRequest);
