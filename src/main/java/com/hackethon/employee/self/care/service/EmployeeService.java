@@ -53,6 +53,14 @@ public class EmployeeService {
             throw new ResourceNotFoundException(String.format("Employee not found with employeeId = ", employeeId));
         }
 
+        employee.setName(employeeRequest.getName() != null ?
+                employeeRequest.getName() :
+                employee.getName());
+
+        employee.setEmail(employeeRequest.getEmail() != null ?
+                employeeRequest.getEmail() :
+                employee.getEmail());
+
         employee.setGender(employeeRequest.getGender() != null ?
                 Gender.fromValue(employeeRequest.getGender()) :
                 employee.getGender());
@@ -92,7 +100,7 @@ public class EmployeeService {
                 employee.getGender().getValue(),
                 employee.getYearsOfExperience(),
                 employee.getCurrentDesignation().getValue(),
-               employee.getToolsTechnologyDatabaseFramework(),
+                employee.getToolsTechnologyDatabaseFramework(),
                 employee.getInterestArea(), rolesResponsibilityList, employee.getSuggestedTechTraining());
 
         return employeeRequest;
@@ -103,11 +111,11 @@ public class EmployeeService {
         employeeRepository.deleteById(employeeId);
     }
 
-    public List<EmployeeRequest> getEmployees(){
+    public List<EmployeeRequest> getEmployees() {
 
         List<EmployeeRequest> employeeRequests = new ArrayList<>();
 
-        for(Employee employee : employeeRepository.findAll()){
+        for (Employee employee : employeeRepository.findAll()) {
 
             employeeRequests.add(getEmployeeById(employee.getId()));
         }
