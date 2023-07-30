@@ -2,6 +2,7 @@ package com.hackethon.employee.self.care.adaptor;
 
 import com.google.gson.*;
 import com.hackethon.employee.self.care.dto.ChatGPTRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -13,11 +14,15 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 
+import static com.hackethon.employee.self.care.adaptor.ChatGPTConfig.API_KEY;
+import static com.hackethon.employee.self.care.adaptor.ChatGPTConfig.API_URL;
 import static com.hackethon.employee.self.care.constant.ChatGPTConstant.*;
-
+@Slf4j
 public class ChatGptApiClient {
 
     public static String sendApiRequest(ChatGPTRequest chatGPTRequest) throws IOException {
+        log.info(API_URL);
+        log.info(API_KEY);
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(API_URL);
 
