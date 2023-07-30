@@ -18,10 +18,11 @@ public class ChatGPTService {
     public Employee addSuggestedTechStackAndTraining(Employee employee) throws IOException {
         String userPrompt = "Employee details are: " + employee.toStringEmployeeYOEToolsInterestArea();
         String systemPrompt =
-                "Suggest any 2 new techstack and 2 best rated training courses along with link (not only tech) " +
-                        "(only names without description in json format) " +
-                        "to do that employees should focus based on list of toolsTechnologyDatabaseFramework, " +
-                        "interestArea, YearsOfExperience and currentDesignation for better career";
+                "Suggest any 2 new techstack and 2 best rated training courses along with link (not only tech)" +
+                        " (only names without description in json format) to do that employees should" +
+                        " focus based on list of toolsTechnologyDatabaseFramework,interestArea, " +
+                        "YearsOfExperience and currentDesignation for better career." +
+                        "Output JSON Format should be {\"techstack\":[],\"trainingCourses\":[]}";
         ChatGPTRequest chatGPTRequest = new ChatGPTRequest(systemPrompt, userPrompt);
         String response = ChatGptApiClient.sendApiRequest(chatGPTRequest);
         try {
@@ -36,10 +37,14 @@ public class ChatGPTService {
     public String addProjectTechStackAndRelatedProjectInMarket(ProjectRequest project) throws IOException {
         String userPrompt = project.getProjectDescription();
         String systemPrompt =
-                "Given the description of the project, give the best tech stack to be used for the project" +
-                " and best architectural decisions in json format and " +
-                "also give similar project around the market in json format." +
-                " Also combine all the tech stack and return in a new field";
+                "Given the description of the project, give the best tech stack to be used for the project " +
+                        "and best architectural decisions in json format and also give similar project around " +
+                        "the market in json format. Also combine all the tech stack and return in a new field." +
+                        " Output should be in below JSON format: " +
+                        "{\"tech_stack\":[],\"architectural_decisions\":[]," +
+                        "\"similar_projects\":[{\"title\":\",\"description\":\"\",\"tech_stack\":[]}," +
+                        "{\"title\":\",\"description\":\"\",\"tech_stack\":[]}],\"" +
+                        "combined_tech_stack\":[]}";
         ChatGPTRequest chatGPTRequest = new ChatGPTRequest(systemPrompt, userPrompt);
         String response = ChatGptApiClient.sendApiRequest(chatGPTRequest);
         try {
